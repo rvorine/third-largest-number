@@ -4,29 +4,29 @@ class ThirdMax
 {
     static int Solve(int[] nums)
     {
-        int? first = null, second = null, third = null;
+        long first = long.MinValue, second = long.MinValue, third = long.MinValue;
 
         foreach (int num in nums)
         {
             if (num == first || num == second || num == third) continue; // only distinct values count
 
-            if (first == null || num > first)
+            if (num > first)
             {
                 third = second;
                 second = first;
                 first = num;
             }
-            else if (second == null || num > second)
+            else if (num > second)
             {
                 third = second;
                 second = num;
             }
-            else if (third == null || num > third)
+            else if (num > third)
             {
                 third = num;
             }
         }
-        return third ?? first.Value;
+        return (int)(third == long.MinValue ? first : third);
     }
 
     static void Main()

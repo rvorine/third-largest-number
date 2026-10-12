@@ -19,7 +19,7 @@ Input:  [2,2,3,1]      Output: 1   // duplicates don't count: distinct values ar
 
 Track the top three distinct values in one pass — no sorting.
 
-Keep three variables `first > second > third`, all starting as "unset" (`None`/`null`, not a sentinel like `Integer.MIN_VALUE`, because the input itself may contain that value).
+Keep three variables `first > second > third`, all starting as `Long.MIN_VALUE` ("unset"). Using a `long` sentinel is safe because no `int` input can ever equal it, whereas `Integer.MIN_VALUE` would collide with a legitimate input value. (JavaScript and Python have no fixed-width Long, so they use `-Infinity` / `float("-inf")` instead.)
 
 For each `num`:
 1. If it equals `first`, `second` or `third`, skip it — only **distinct** values count.
@@ -27,7 +27,7 @@ For each `num`:
 3. Else if it beats `second`, shift: `third = second`, `second = num`.
 4. Else if it beats `third`, set `third = num`.
 
-At the end, if `third` was filled return it, otherwise return `first` (fewer than three distinct values).
+At the end, if `third` is still the sentinel return `first` (fewer than three distinct values), otherwise return `third`.
 
 **Time:** O(n) — single pass, constant work per element.
 **Space:** O(1) — three variables.

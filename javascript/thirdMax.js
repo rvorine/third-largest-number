@@ -1,21 +1,22 @@
 function thirdMax(nums) {
-  let first = null, second = null, third = null;
+  // JS has no Long; -Infinity is the equivalent "smaller than any input" sentinel
+  let first = -Infinity, second = -Infinity, third = -Infinity;
 
   for (const num of nums) {
     if (num === first || num === second || num === third) continue; // only distinct values count
 
-    if (first === null || num > first) {
+    if (num > first) {
       third = second;
       second = first;
       first = num;
-    } else if (second === null || num > second) {
+    } else if (num > second) {
       third = second;
       second = num;
-    } else if (third === null || num > third) {
+    } else if (num > third) {
       third = num;
     }
   }
-  return third !== null ? third : first;
+  return third === -Infinity ? first : third;
 }
 
 console.log(thirdMax([3, 2, 1]));     // 1

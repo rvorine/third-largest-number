@@ -1,27 +1,25 @@
 public class ThirdMax {
 
     static int thirdMax(int[] nums) {
-        Integer first = null, second = null, third = null;
+        long first = Long.MIN_VALUE, second = Long.MIN_VALUE, third = Long.MIN_VALUE;
 
         for (int num : nums) {
-            if ((first != null && num == first)
-                    || (second != null && num == second)
-                    || (third != null && num == third)) {
+            if (num == first || num == second || num == third) {
                 continue; // only distinct values count
             }
 
-            if (first == null || num > first) {
+            if (num > first) {
                 third = second;
                 second = first;
                 first = num;
-            } else if (second == null || num > second) {
+            } else if (num > second) {
                 third = second;
                 second = num;
-            } else if (third == null || num > third) {
+            } else if (num > third) {
                 third = num;
             }
         }
-        return third != null ? third : first;
+        return (int) (third == Long.MIN_VALUE ? first : third);
     }
 
     public static void main(String[] args) {

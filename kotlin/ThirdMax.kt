@@ -1,23 +1,23 @@
 fun thirdMax(nums: IntArray): Int {
-    var first: Int? = null
-    var second: Int? = null
-    var third: Int? = null
+    var first = Long.MIN_VALUE
+    var second = Long.MIN_VALUE
+    var third = Long.MIN_VALUE
 
     for (num in nums) {
-        if (num == first || num == second || num == third) continue // only distinct values count
+        if (num.toLong() == first || num.toLong() == second || num.toLong() == third) continue // only distinct values count
 
-        if (first == null || num > first) {
+        if (num > first) {
             third = second
             second = first
-            first = num
-        } else if (second == null || num > second) {
+            first = num.toLong()
+        } else if (num > second) {
             third = second
-            second = num
-        } else if (third == null || num > third) {
-            third = num
+            second = num.toLong()
+        } else if (num > third) {
+            third = num.toLong()
         }
     }
-    return third ?: first!!
+    return (if (third == Long.MIN_VALUE) first else third).toInt()
 }
 
 fun main() {

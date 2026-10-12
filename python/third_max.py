@@ -1,18 +1,21 @@
+NEG_INF = float("-inf")  # Python has no fixed-width Long; -inf is smaller than any input
+
+
 def third_max(nums):
-    first = second = third = None
+    first = second = third = NEG_INF
 
     for num in nums:
         if num in (first, second, third):
             continue  # only distinct values count
 
-        if first is None or num > first:
+        if num > first:
             first, second, third = num, first, second
-        elif second is None or num > second:
+        elif num > second:
             second, third = num, second
-        elif third is None or num > third:
+        elif num > third:
             third = num
 
-    return third if third is not None else first
+    return first if third == NEG_INF else third
 
 
 if __name__ == "__main__":
